@@ -15,11 +15,13 @@ void Application::setup() {
 
   setup_light(*scn_mgr);
   setup_camera(*scn_mgr);
+  create_plane(*scn_mgr);
   create_entities(*scn_mgr);
 }
 
 void Application::setup_light(SceneManager &scn_mgr) const {
   scn_mgr.setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+  scn_mgr.setShadowTechnique(ShadowTechnique::SHADOWTYPE_TEXTURE_MODULATIVE);
 
   auto light = scn_mgr.createLight("MainLight");
   auto light_node = scn_mgr.getRootSceneNode()->createChildSceneNode();
@@ -39,6 +41,19 @@ void Application::setup_camera(SceneManager &scn_mgr) const {
 
   auto vp = getRenderWindow()->addViewport(cam);
   vp->setBackgroundColour(ColourValue::White);
+}
+
+void Application::create_plane(Ogre::SceneManager &scn_mgr) const {
+  Plane plane(Vector3::UNIT_Y, 0);
+  MeshManager::getSingleton().createPlane("ground", RGN_DEFAULT, plane, 1500,
+                                          1500, 20, 20, true, 1, 5, 5,
+                                          Vector3::UNIT_Z);
+  auto entity = scn_mgr.createEntity("ground");
+  entity->setCastShadows(false); // No need for shadows from the ground.
+  entity->setMaterialName("Examples/Rockwall");
+
+  auto node = scn_mgr.getRootSceneNode()->createChildSceneNode();
+  node->attachObject(entity);
 }
 
 void Application::create_entities(SceneManager &scn_mgr) const {

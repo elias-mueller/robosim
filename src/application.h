@@ -14,4 +14,5 @@ private:
   void create_entities(Ogre::SceneManager &scn_mgr) const;
   Ogre::SceneNode *create_entity(Ogre::SceneManager &scn_mgr,
                                  std::string mesh_name) const;
+  void create_plane(Ogre::SceneManager &scn_mgr) const;
 };
