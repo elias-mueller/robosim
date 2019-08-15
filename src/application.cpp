@@ -20,7 +20,7 @@ void Application::setup() {
 }
 
 void Application::setup_light(SceneManager &scn_mgr) const {
-  scn_mgr.setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+  scn_mgr.setAmbientLight(ColourValue{0.5, 0.5, 0.5});
   scn_mgr.setShadowTechnique(ShadowTechnique::SHADOWTYPE_TEXTURE_MODULATIVE);
 
   Light *light = scn_mgr.createLight("MainLight");
@@ -44,7 +44,7 @@ void Application::setup_camera(SceneManager &scn_mgr) const {
 }
 
 void Application::create_plane(Ogre::SceneManager &scn_mgr) const {
-  Plane plane(Vector3::UNIT_Y, 0);
+  Plane plane{Vector3::UNIT_Y, 0};
   MeshManager::getSingleton().createPlane("ground", RGN_DEFAULT, plane, 1500,
                                           1500, 20, 20, true, 1, 5, 5,
                                           Vector3::UNIT_Z);
@@ -58,14 +58,14 @@ void Application::create_plane(Ogre::SceneManager &scn_mgr) const {
 
 void Application::create_entities(SceneManager &scn_mgr) const {
   SceneNode *node = create_entity(scn_mgr, "ogrehead.mesh");
-  node->setPosition(Vector3(-84, 48, 0));
+  node->setPosition(Vector3{-84, 48, 0});
 
   node = create_entity(scn_mgr, "ogrehead.mesh");
-  node->setPosition(Vector3(84, 48, 0));
+  node->setPosition(Vector3{84, 48, 0});
 
   node = create_entity(scn_mgr, "ninja.mesh");
   node->scale(Vector3::UNIT_SCALE * 0.5);
-  node->rotate(Quaternion(Radian(Degree(180)), Vector3::UNIT_Y));
+  node->rotate(Quaternion(Radian{Degree{180}}, Vector3::UNIT_Y));
 }
 
 SceneNode *Application::create_entity(SceneManager &scn_mgr,
