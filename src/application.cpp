@@ -37,18 +37,29 @@ void Application::setup_camera(SceneManager &scn_mgr) const {
   cam_node->attachObject(cam);
   cam_node->setPosition(0, 47, 222);
 
-  getRenderWindow()->addViewport(cam);
+  auto vp = getRenderWindow()->addViewport(cam);
+  vp->setBackgroundColour(ColourValue::White);
 }
 
 void Application::create_entities(SceneManager &scn_mgr) const {
-  auto ogre_entity = scn_mgr.createEntity("ogrehead.mesh");
-  auto ogre_node = scn_mgr.getRootSceneNode()->createChildSceneNode();
-  ogre_node->attachObject(ogre_entity);
+  auto node = create_entity(scn_mgr, "ogrehead.mesh");
+  node->setPosition(Vector3(-84, 48, 0));
 
-  auto ogre_entity_2 = scn_mgr.createEntity("ogrehead.mesh");
-  auto ogre_node_2 =
-      scn_mgr.getRootSceneNode()->createChildSceneNode(Vector3(84, 48, 0));
-  ogre_node_2->attachObject(ogre_entity_2);
+  node = create_entity(scn_mgr, "ogrehead.mesh");
+  node->setPosition(Vector3(84, 48, 0));
+
+  node = create_entity(scn_mgr, "ninja.mesh");
+  node->scale(Vector3::UNIT_SCALE * 0.5);
+  node->rotate(Quaternion(Radian(Degree(180)), Vector3::UNIT_Y));
+}
+
+SceneNode *Application::create_entity(SceneManager &scn_mgr,
+                                      std::string mesh_name) const {
+  auto entity = scn_mgr.createEntity(mesh_name);
+  auto node = scn_mgr.getRootSceneNode()->createChildSceneNode();
+  node->attachObject(entity);
+
+  return node;
 }
 
 bool Application::keyPressed(const OgreBites::KeyboardEvent &evt) {
