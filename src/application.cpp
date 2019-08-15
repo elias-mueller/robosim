@@ -8,81 +8,64 @@ void Application::setup() {
   addInputListener(this);
 
   // get a pointer to the already created root
-  Root *root = getRoot();
-  SceneManager *scnMgr = root->createSceneManager();
+  auto root = getRoot();
+  auto scn_mgr = root->createSceneManager();
 
   // register our scene with the RTSS
-  RTShader::ShaderGenerator *shadergen =
-      RTShader::ShaderGenerator::getSingletonPtr();
-  shadergen->addSceneManager(scnMgr);
+  auto shader_gen = RTShader::ShaderGenerator::getSingletonPtr();
+  shader_gen->addSceneManager(scn_mgr);
 
   // -- tutorial section start --
   //! [turnlights]
-  scnMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+  scn_mgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
   //! [turnlights]
 
   //! [newlight]
-  Light *light = scnMgr->createLight("MainLight");
-  SceneNode *lightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-  lightNode->attachObject(light);
+  auto light = scn_mgr->createLight("MainLight");
+  auto light_node = scn_mgr->getRootSceneNode()->createChildSceneNode();
+  light_node->attachObject(light);
   //! [newlight]
 
   //! [lightpos]
-  lightNode->setPosition(20, 80, 50);
+  light_node->setPosition(20, 80, 50);
   //! [lightpos]
 
   //! [camera]
-  SceneNode *camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+  auto cam_node = scn_mgr->getRootSceneNode()->createChildSceneNode();
 
   // create the camera
-  Camera *cam = scnMgr->createCamera("myCam");
+  auto cam = scn_mgr->createCamera("myCam");
   cam->setNearClipDistance(5); // specific to this sample
   cam->setAutoAspectRatio(true);
-  camNode->attachObject(cam);
-  camNode->setPosition(0, 0, 140);
+  cam_node->attachObject(cam);
+  cam_node->setPosition(0, 0, 140);
+
+  //! [cameramove]
+  cam_node->setPosition(0, 47, 222);
+  //! [cameramove]
 
   // and tell it to render into the main window
   getRenderWindow()->addViewport(cam);
   //! [camera]
 
   //! [entity1]
-  Entity *ogreEntity = scnMgr->createEntity("ogrehead.mesh");
+  auto ogre_entity = scn_mgr->createEntity("ogrehead.mesh");
   //! [entity1]
 
   //! [entity1node]
-  SceneNode *ogreNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+  auto ogre_node = scn_mgr->getRootSceneNode()->createChildSceneNode();
   //! [entity1node]
 
   //! [entity1nodeattach]
-  ogreNode->attachObject(ogreEntity);
+  ogre_node->attachObject(ogre_entity);
   //! [entity1nodeattach]
 
-  //! [cameramove]
-  camNode->setPosition(0, 47, 222);
-  //! [cameramove]
-
   //! [entity2]
-  Entity *ogreEntity2 = scnMgr->createEntity("ogrehead.mesh");
-  SceneNode *ogreNode2 =
-      scnMgr->getRootSceneNode()->createChildSceneNode(Vector3(84, 48, 0));
-  ogreNode2->attachObject(ogreEntity2);
+  auto ogre_entity_2 = scn_mgr->createEntity("ogrehead.mesh");
+  auto ogre_node_2 =
+      scn_mgr->getRootSceneNode()->createChildSceneNode(Vector3(84, 48, 0));
+  ogre_node_2->attachObject(ogre_entity_2);
   //! [entity2]
-
-  //! [entity3]
-  Entity *ogreEntity3 = scnMgr->createEntity("ogrehead.mesh");
-  SceneNode *ogreNode3 = scnMgr->getRootSceneNode()->createChildSceneNode();
-  ogreNode3->setPosition(0, 104, 0);
-  ogreNode3->setScale(2, 1.2, 1);
-  ogreNode3->attachObject(ogreEntity3);
-  //! [entity3]
-
-  //! [entity4]
-  Entity *ogreEntity4 = scnMgr->createEntity("ogrehead.mesh");
-  SceneNode *ogreNode4 = scnMgr->getRootSceneNode()->createChildSceneNode();
-  ogreNode4->setPosition(-84, 48, 0);
-  ogreNode4->roll(Degree(-90));
-  ogreNode4->attachObject(ogreEntity4);
-  //! [entity4]
 }
 
 bool Application::keyPressed(const OgreBites::KeyboardEvent &evt) {
