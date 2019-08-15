@@ -69,7 +69,7 @@ void Application::create_entities(SceneManager &scn_mgr) const {
 }
 
 SceneNode *Application::create_entity(SceneManager &scn_mgr,
-                                      std::string mesh_name) const {
+                                      const std::string &mesh_name) const {
   auto entity = scn_mgr.createEntity(mesh_name);
   auto node = scn_mgr.getRootSceneNode()->createChildSceneNode();
   node->attachObject(entity);
