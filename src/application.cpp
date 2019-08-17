@@ -74,7 +74,7 @@ Application::create_plane(Ogre::SceneManager &scn_mgr) const
 }
 
 void
-Application::create_entities(SceneManager &scn_mgr) const
+Application::create_entities(SceneManager &scn_mgr)
 {
   SceneNode *node = create_entity(scn_mgr, "ogrehead.mesh");
   node->setPosition(Vector3{ -84, 48, 0 });
@@ -85,6 +85,12 @@ Application::create_entities(SceneManager &scn_mgr) const
   node = create_entity(scn_mgr, "ninja.mesh");
   node->scale(Vector3::UNIT_SCALE * 0.5);
   node->rotate(Quaternion(Radian{ Degree{ 180 } }, Vector3::UNIT_Y));
+
+  Entity *entity = scn_mgr.createEntity("sphere", SceneManager::PT_SPHERE);
+  sphere_node = scn_mgr.getRootSceneNode()->createChildSceneNode();
+  sphere_node->attachObject(entity);
+  sphere_node->setPosition(0, 40, 0);
+  sphere_node->scale(Vector3::UNIT_SCALE * 0.3);
 }
 
 SceneNode *
@@ -105,4 +111,13 @@ Application::keyPressed(const OgreBites::KeyboardEvent &evt)
     getRoot()->queueEndRendering();
   }
   return true;
+}
+
+bool
+Application::frameStarted(const Ogre::FrameEvent &evt)
+{
+  time_passed += evt.timeSinceLastFrame;
+  sphere_node->translate(0, Math::Sin(time_passed), 0);
+
+  return ApplicationContextBase::frameStarted(evt);
 }
