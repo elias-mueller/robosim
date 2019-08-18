@@ -6,7 +6,7 @@ int
 main(int argc, char *argv[])
 {
   try {
-    Application app;
+    robosim::Application app;
     app.initApp();
     app.getRoot()->startRendering();
     app.closeApp();
