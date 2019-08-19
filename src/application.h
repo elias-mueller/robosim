@@ -16,19 +16,21 @@ public:
   bool keyPressed(const OgreBites::KeyboardEvent &evt) override;
   bool frameStarted(const Ogre::FrameEvent &evt) override;
 
+  static Ogre::SceneManager &get_scene_manager();
+
 private:
-  void setup_scene(Ogre::SceneManager &scn_mgr);
-  void setup_camera(Ogre::SceneManager &scn_mgr) const;
-  void setup_light(Ogre::SceneManager &scn_mgr) const;
-  void create_entities(Ogre::SceneManager &scn_mgr);
-  Ogre::SceneNode *create_entity(Ogre::SceneManager &scn_mgr,
-                                 const std::string &mesh_name) const;
-  void create_plane(Ogre::SceneManager &scn_mgr) const;
+  static Ogre::SceneManager *scene_manager;
+
+  void setup_scene();
+  void setup_camera() const;
+  void setup_light() const;
+  void create_entities();
+  Ogre::SceneNode *create_entity(const std::string &mesh_name) const;
+  void create_plane() const;
 
   Ogre::SceneNode *sphere_node;
   Ogre::Real time_passed{ 0 };
-  void create_sphere(Ogre::SceneManager &scn_mgr);
-  void create_plane(Ogre::SceneManager &scn_mgr);
+  void create_sphere();
 };
 
 }

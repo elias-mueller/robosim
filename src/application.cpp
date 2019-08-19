@@ -11,27 +11,26 @@ Application::setup()
   ApplicationContextBase::setup();
   addInputListener(this);
 
-  Root *root = getRoot();
-  SceneManager *scn_mgr = root->createSceneManager();
-
   auto &shader_gen = RTShader::ShaderGenerator::getSingleton();
-  shader_gen.addSceneManager(scn_mgr);
+  shader_gen.addSceneManager(&get_scene_manager());
 
-  setup_scene(*scn_mgr);
+  setup_scene();
 }
 
 void
-Application::setup_scene(SceneManager &scn_mgr)
+Application::setup_scene()
 {
-  setup_light(scn_mgr);
-  setup_camera(scn_mgr);
-  create_plane(scn_mgr);
-  create_entities(scn_mgr);
+  setup_light();
+  setup_camera();
+  create_plane();
+  create_entities();
 }
 
 void
-Application::setup_light(SceneManager &scn_mgr) const
+Application::setup_light() const
 {
+  auto &scn_mgr = get_scene_manager();
+
   scn_mgr.setAmbientLight(ColourValue{ 0.5, 0.5, 0.5 });
   scn_mgr.setShadowTechnique(ShadowTechnique::SHADOWTYPE_TEXTURE_MODULATIVE);
 
@@ -43,8 +42,10 @@ Application::setup_light(SceneManager &scn_mgr) const
 }
 
 void
-Application::setup_camera(SceneManager &scn_mgr) const
+Application::setup_camera() const
 {
+  auto &scn_mgr = get_scene_manager();
+
   SceneNode *cam_node = scn_mgr.getRootSceneNode()->createChildSceneNode();
 
   Camera *cam = scn_mgr.createCamera("myCam");
@@ -58,8 +59,10 @@ Application::setup_camera(SceneManager &scn_mgr) const
 }
 
 void
-Application::create_plane(Ogre::SceneManager &scn_mgr) const
+Application::create_plane() const
 {
+  auto &scn_mgr = get_scene_manager();
+
   Plane plane{ Vector3::UNIT_Y, 0 };
   MeshManager::getSingleton().createPlane("ground",
                                           RGN_DEFAULT,
@@ -82,26 +85,26 @@ Application::create_plane(Ogre::SceneManager &scn_mgr) const
 }
 
 void
-Application::create_entities(SceneManager &scn_mgr)
+Application::create_entities()
 {
-  SceneNode *node = create_entity(scn_mgr, "ogrehead.mesh");
+
+  SceneNode *node = create_entity("ogrehead.mesh");
   node->setPosition(Vector3{ -84, 48, 0 });
 
-  node = create_entity(scn_mgr, "ogrehead.mesh");
+  node = create_entity("ogrehead.mesh");
   node->setPosition(Vector3{ 84, 48, 0 });
 
-  node = create_entity(scn_mgr, "ninja.mesh");
+  node = create_entity("ninja.mesh");
   node->scale(Vector3::UNIT_SCALE * 0.5);
   node->rotate(Quaternion(Radian{ Degree{ 180 } }, Vector3::UNIT_Y));
 
-  create_sphere(scn_mgr);
-
-  create_plane(scn_mgr);
+  create_sphere();
 }
 SceneNode *
-Application::create_entity(SceneManager &scn_mgr,
-                           const std::string &mesh_name) const
+Application::create_entity(const std::string &mesh_name) const
 {
+  auto &scn_mgr = get_scene_manager();
+
   Entity *entity = scn_mgr.createEntity(mesh_name);
   SceneNode *node = scn_mgr.getRootSceneNode()->createChildSceneNode();
   node->attachObject(entity);
@@ -110,43 +113,15 @@ Application::create_entity(SceneManager &scn_mgr,
 }
 
 void
-Application::create_sphere(SceneManager &scn_mgr)
+Application::create_sphere()
 {
+  auto &scn_mgr = get_scene_manager();
+
   Entity *entity = scn_mgr.createEntity("sphere", SceneManager::PT_SPHERE);
   sphere_node = scn_mgr.getRootSceneNode()->createChildSceneNode();
   sphere_node->attachObject(entity);
   sphere_node->setPosition(0, 40, 0);
   sphere_node->scale(Vector3::UNIT_SCALE * 0.3);
-}
-
-void
-Application::create_plane(Ogre::SceneManager &scn_mgr)
-{
-  Ogre::ManualObject *obj = scn_mgr.createManualObject("box");
-  obj->begin("Examples/OgreLogo", Ogre::RenderOperation::OT_TRIANGLE_LIST);
-
-  obj->position(-20, 20, 20);
-  obj->normal(0, 0, 1);
-  obj->textureCoord(0, 0);
-
-  obj->position(-20, -20, 20);
-  obj->normal(0, 0, 1);
-  obj->textureCoord(0, 1);
-
-  obj->position(20, -20, 20);
-  obj->normal(0, 0, 1);
-  obj->textureCoord(1, 1);
-
-  obj->position(20, 20, 20);
-  obj->normal(0, 0, 1);
-  obj->textureCoord(1, 0);
-
-  obj->quad(0, 1, 2, 3);
-
-  obj->end();
-  SceneNode *node = scn_mgr.getRootSceneNode()->createChildSceneNode();
-  node->attachObject(obj);
-  node->rotate(Ogre::Vector3::UNIT_Y, Radian{ Degree{ 45 } });
 }
 
 bool
@@ -165,6 +140,19 @@ Application::frameStarted(const Ogre::FrameEvent &evt)
   sphere_node->translate(0, Math::Sin(time_passed), 0);
 
   return ApplicationContextBase::frameStarted(evt);
+}
+
+Ogre::SceneManager *Application::scene_manager;
+
+Ogre::SceneManager &
+Application::get_scene_manager()
+{
+  if (!scene_manager) {
+    auto &root = Ogre::Root::getSingleton();
+    scene_manager = root.createSceneManager();
+  }
+
+  return *scene_manager;
 }
 
 }
