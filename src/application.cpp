@@ -1,5 +1,6 @@
 #include "application.h"
 #include "Ogre.h"
+#include "sphere_creator.h"
 
 using namespace Ogre;
 
@@ -98,7 +99,10 @@ Application::create_entities()
   node->scale(Vector3::UNIT_SCALE * 0.5);
   node->rotate(Quaternion(Radian{ Degree{ 180 } }, Vector3::UNIT_Y));
 
-  create_sphere();
+  //  auto sphere_creator = std::make_unique<Sphere_creator>();
+  auto sphere_creator = new Sphere_creator();
+  Ogre::Root::getSingleton().addFrameListener(sphere_creator);
+  sphere_creator->create();
 }
 SceneNode *
 Application::create_entity(const std::string &mesh_name) const
@@ -112,18 +116,6 @@ Application::create_entity(const std::string &mesh_name) const
   return node;
 }
 
-void
-Application::create_sphere()
-{
-  auto &scn_mgr = get_scene_manager();
-
-  Entity *entity = scn_mgr.createEntity("sphere", SceneManager::PT_SPHERE);
-  sphere_node = scn_mgr.getRootSceneNode()->createChildSceneNode();
-  sphere_node->attachObject(entity);
-  sphere_node->setPosition(0, 40, 0);
-  sphere_node->scale(Vector3::UNIT_SCALE * 0.3);
-}
-
 bool
 Application::keyPressed(const OgreBites::KeyboardEvent &evt)
 {
@@ -131,15 +123,6 @@ Application::keyPressed(const OgreBites::KeyboardEvent &evt)
     getRoot()->queueEndRendering();
   }
   return true;
-}
-
-bool
-Application::frameStarted(const Ogre::FrameEvent &evt)
-{
-  time_passed += evt.timeSinceLastFrame;
-  sphere_node->translate(0, Math::Sin(time_passed), 0);
-
-  return ApplicationContextBase::frameStarted(evt);
 }
 
 Ogre::SceneManager *Application::scene_manager;

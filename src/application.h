@@ -14,7 +14,6 @@ class Application
 public:
   void setup() override;
   bool keyPressed(const OgreBites::KeyboardEvent &evt) override;
-  bool frameStarted(const Ogre::FrameEvent &evt) override;
 
   static Ogre::SceneManager &get_scene_manager();
 
@@ -28,9 +27,6 @@ private:
   Ogre::SceneNode *create_entity(const std::string &mesh_name) const;
   void create_plane() const;
 
-  Ogre::SceneNode *sphere_node;
-  Ogre::Real time_passed{ 0 };
-  void create_sphere();
 };
 
 }
