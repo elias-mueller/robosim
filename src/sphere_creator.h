@@ -15,6 +15,7 @@ private:
   Ogre::SceneNode *sphere_node;
 
   Ogre::Real time_passed{ 0 };
+  void sinus_float();
 };
 
 }
