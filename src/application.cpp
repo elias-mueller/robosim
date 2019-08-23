@@ -1,6 +1,7 @@
 #include "application.h"
 #include "Ogre.h"
-#include "sphere_creator.h"
+#include "entity_factory.h"
+#include "sphere_node.h"
 
 using namespace Ogre;
 
@@ -99,11 +100,11 @@ Application::create_entities()
   node->scale(Vector3::UNIT_SCALE * 0.5);
   node->rotate(Quaternion(Radian{ Degree{ 180 } }, Vector3::UNIT_Y));
 
-  //  auto sphere_creator = std::make_unique<Sphere_creator>();
-  auto sphere_creator = new Sphere_creator();
-  Ogre::Root::getSingleton().addFrameListener(sphere_creator);
-  sphere_creator->create();
+  auto &entity_factory = robosim::Entity_factory::get_instance();
+  entity_factory.create(Entity_type::SPHERE);
+  entity_factory.create(Entity_type::BOX);
 }
+
 SceneNode *
 Application::create_entity(const std::string &mesh_name) const
 {

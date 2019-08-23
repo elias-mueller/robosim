@@ -1,20 +1,22 @@
 #pragma once
 
+#include "Creatable_node.h"
 #include "Ogre.h"
-#include <OgrePrerequisites.h>
 
 namespace robosim {
 
-class Sphere_creator : public Ogre::FrameListener
+class Sphere_node
+  : public Ogre::FrameListener
+  , public Creatable_node
 {
 public:
-  void create();
+  explicit Sphere_node(Ogre::SceneManager &scn_mgr);
   bool frameStarted(const Ogre::FrameEvent &evt) override;
 
 private:
-  Ogre::SceneNode *sphere_node;
-
+  Ogre::SceneNode *ogre_node;
   Ogre::Real time_passed{ 0 };
+
   void sinus_float();
 };
 

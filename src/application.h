@@ -5,8 +5,6 @@
 
 namespace robosim {
 
-static const auto DEFAULT_SCENE_MANAGER_INSTANCE_NAME = "default";
-
 class Application
   : public OgreBites::ApplicationContext
   , public OgreBites::InputListener
@@ -26,7 +24,6 @@ private:
   void create_entities();
   Ogre::SceneNode *create_entity(const std::string &mesh_name) const;
   void create_plane() const;
-
 };
 
 }
