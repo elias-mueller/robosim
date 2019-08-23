@@ -1,0 +1,3 @@
+=== Robosim
+
+Basic robot simulator to play around with 3D rendering and robot algorithms.
