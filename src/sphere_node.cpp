@@ -22,12 +22,12 @@ bool
 Sphere_node::frameStarted(const Ogre::FrameEvent &evt)
 {
   time_passed += evt.timeSinceLastFrame;
-  sinus_float();
+  sine_float();
   return FrameListener::frameStarted(evt);
 }
 
 void
-Sphere_node::sinus_float()
+Sphere_node::sine_float()
 {
   ogre_node->translate(0, Math::Sin(time_passed), 0);
 }
