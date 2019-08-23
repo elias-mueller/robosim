@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Creatable_node.h"
-#include "Entity_type.h"
+#include "creatable_node.h"
+#include "entity_type.h"
 #include <Ogre.h>
 #include <iostream>
 

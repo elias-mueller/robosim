@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Creatable_node.h"
+#include "creatable_node.h"
 #include <OgrePrerequisites.h>
 
 namespace robosim {

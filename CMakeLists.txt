@@ -15,8 +15,8 @@ add_executable(app src/main.cpp
         src/box_node.cpp src/box_node.h
         src/sphere_node.cpp src/sphere_node.h
         src/entity_factory.cpp src/entity_factory.h
-        src/Creatable_node.h
-        src/Entity_type.h)
+        src/creatable_node.h
+        src/entity_type.h)
 target_link_libraries(app OgreBites OgreRTShaderSystem)
 
 # Subdirectories
