@@ -21,3 +21,4 @@ target_link_libraries(app OgreBites OgreRTShaderSystem)
 
 # Subdirectories
 add_subdirectory(test)
+add_subdirectory(doc)
