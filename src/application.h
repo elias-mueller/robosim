@@ -14,16 +14,11 @@ public:
   bool keyPressed(const OgreBites::KeyboardEvent &evt) override;
 
   static Ogre::SceneManager &get_scene_manager();
+  static Ogre::RenderWindow &get_render_window();
 
 private:
   static Ogre::SceneManager *scene_manager;
-
-  void setup_scene();
-  void setup_camera() const;
-  void setup_light() const;
-  void create_entities();
-  Ogre::SceneNode *create_entity(const std::string &mesh_name) const;
-  void create_plane() const;
+  static Ogre::RenderWindow *render_window;
 };
 
 }
