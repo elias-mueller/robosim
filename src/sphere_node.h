@@ -15,7 +15,7 @@ public:
 
 private:
   Ogre::SceneNode *ogre_node;
-  Ogre::Real time_passed{ 0 };
+  Ogre::Real time_passed = 0.0;
 
   void sine_float();
 };
