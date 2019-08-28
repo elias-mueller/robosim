@@ -7,10 +7,8 @@ using namespace Ogre;
 namespace robosim {
 
 Sphere_node::Sphere_node(Ogre::SceneManager &scn_mgr)
-  : Creatable_node{}
 {
-  Entity *entity =
-    scn_mgr.createEntity("sphere", Ogre::SceneManager::PT_SPHERE);
+  Entity *entity = scn_mgr.createEntity(Ogre::SceneManager::PT_SPHERE);
   ogre_node = scn_mgr.getRootSceneNode()->createChildSceneNode();
   ogre_node->attachObject(entity);
   ogre_node->setPosition(0, 40, 0);
