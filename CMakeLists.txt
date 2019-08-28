@@ -4,10 +4,12 @@ project(robosim)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
+set(OGRE_VERSION 1.12.1)
+
 # add_compile_options(-Wall -Werror -pedantic -Wextra)
 add_compile_options(-Wall -Werror -pedantic)
 
-find_package(OGRE 1.12.1 REQUIRED COMPONENTS Bites RTShaderSystem)
+find_package(OGRE ${OGRE_VERSION} REQUIRED COMPONENTS Bites RTShaderSystem)
 file(COPY ${OGRE_CONFIG_DIR}/resources.cfg
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
