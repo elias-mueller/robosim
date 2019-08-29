@@ -1,11 +1,15 @@
 #include "scene_builder.h"
 #include "application.h"
+#include "box_node.h"
 #include "entity_factory.h"
+#include "hinge_joint.h"
 #include <string>
 
 using namespace Ogre;
 
 namespace robosim {
+
+namespace {
 
 void
 setup_light()
@@ -87,13 +91,19 @@ create_entities()
   node = create_entity("ogrehead.mesh");
   node->setPosition(Vector3{ 84, 48, 0 });
 
-  node = create_entity("ninja.mesh");
-  node->scale(Vector3::UNIT_SCALE * 0.5);
-  node->rotate(Quaternion(Radian{ Degree{ 180 } }, Vector3::UNIT_Y));
-
   auto &entity_factory = robosim::Entity_factory::get_instance();
+
   entity_factory.create(Entity_type::SPHERE);
-  entity_factory.create(Entity_type::BOX);
+
+  Creatable_node &box0 = entity_factory.create(Entity_type::BOX);
+  Creatable_node &box1 = entity_factory.create(Entity_type::BOX);
+  auto &box_node0 = dynamic_cast<Box_node &>(box0);
+  auto &box_node1 = dynamic_cast<Box_node &>(box1);
+
+  box_node1.translate(Vector3{ 0, 50, 0 });
+  box_node1.scale(Vector3{ 2, 1, 1 });
+}
+
 }
 
 void
@@ -102,7 +112,7 @@ robosim::Scene_builder::build()
   setup_light();
   setup_camera();
   create_plane();
-  create_entities();
+  robosim::create_entities();
 }
 
 }

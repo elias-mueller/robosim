@@ -16,10 +16,16 @@ Box_node::Box_node(Ogre::SceneManager &scn_mgr)
   ogre_node->scale(Ogre::Vector3::UNIT_SCALE * 0.3);
 }
 
-SceneNode &
-Box_node::get_ogre_node() const
+void
+Box_node::translate(const Vector3 &v)
 {
-  return *ogre_node;
+  ogre_node->translate(v);
+}
+
+void
+Box_node::scale(const Ogre::Vector3 &v)
+{
+  ogre_node->scale(v);
 }
 
 }

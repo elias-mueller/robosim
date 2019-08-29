@@ -18,7 +18,7 @@ public:
   Entity_factory(Entity_factory const &) = delete;
   void operator=(Entity_factory const &) = delete;
 
-  std::weak_ptr<Creatable_node> create(Entity_type);
+  Creatable_node &create(Entity_type);
 
 private:
   Entity_factory() = default;
