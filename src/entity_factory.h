@@ -15,10 +15,12 @@ class Entity_factory
 public:
   // Singleton
   static Entity_factory &get_instance();
-  Entity_factory(Entity_factory const &) = delete;
-  void operator=(Entity_factory const &) = delete;
+  Entity_factory(Entity_factory &) = delete;
+  void operator=(Entity_factory &) = delete;
+  Entity_factory(Entity_factory &&) = delete;
+  void operator=(Entity_factory &&) = delete;
 
-  Creatable_node &create(Entity_type);
+  std::shared_ptr<Creatable_node> create(Entity_type);
 
 private:
   Entity_factory() = default;

@@ -23,6 +23,8 @@ add_executable(app
                src/sphere_node.h
                src/entity_factory.cpp
                src/entity_factory.h
+               src/hinge_joint.cpp
+               src/hinge_joint.h
                src/scene_builder.cpp
                src/scene_builder.h
                src/creatable_node.h

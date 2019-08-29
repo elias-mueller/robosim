@@ -28,4 +28,16 @@ Box_node::scale(const Ogre::Vector3 &v)
   ogre_node->scale(v);
 }
 
+const Quaternion &
+Box_node::get_orientation() const
+{
+  return ogre_node->getOrientation();
+}
+
+void
+Box_node::set_orientation(const Ogre::Quaternion &orientation)
+{
+  ogre_node->setOrientation(orientation);
+}
+
 }

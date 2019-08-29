@@ -14,7 +14,7 @@ Entity_factory::get_instance()
   return entity_factory;
 }
 
-Creatable_node &
+std::shared_ptr<Creatable_node>
 Entity_factory::create(const Entity_type type)
 {
   auto &scn_mgr = robosim::Application::get_scene_manager();
@@ -22,11 +22,11 @@ Entity_factory::create(const Entity_type type)
   switch (type) {
     case Entity_type::SPHERE: {
       created_nodes.emplace_back(std::make_shared<Sphere_node>(scn_mgr));
-      return *created_nodes.back().get();
+      return created_nodes.back();
     }
     case Entity_type::BOX: {
       created_nodes.emplace_back(std::make_shared<Box_node>(scn_mgr));
-      return *created_nodes.back().get();
+      return created_nodes.back();
     }
     default:
       throw Type_not_supported_exception();

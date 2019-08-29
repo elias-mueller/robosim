@@ -95,13 +95,15 @@ create_entities()
 
   entity_factory.create(Entity_type::SPHERE);
 
-  Creatable_node &box0 = entity_factory.create(Entity_type::BOX);
-  Creatable_node &box1 = entity_factory.create(Entity_type::BOX);
-  auto &box_node0 = dynamic_cast<Box_node &>(box0);
-  auto &box_node1 = dynamic_cast<Box_node &>(box1);
+  std::shared_ptr<Creatable_node> box0 =
+    entity_factory.create(Entity_type::BOX);
+  std::shared_ptr<Creatable_node> box1 =
+    entity_factory.create(Entity_type::BOX);
 
-  box_node1.translate(Vector3{ 0, 50, 0 });
-  box_node1.scale(Vector3{ 2, 1, 1 });
+  box1->translate(Vector3{ 0, 50, 0 });
+  box1->scale(Vector3{ 2, 1, 1 });
+
+  new Hinge_joint{ box0, box1, true };
 }
 
 }
