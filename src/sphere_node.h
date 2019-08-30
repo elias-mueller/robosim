@@ -14,7 +14,7 @@ public:
   bool frameStarted(const Ogre::FrameEvent &evt) override;
 
 private:
-  Ogre::Real time_passed = 0.0;
+  Real time_passed = 0.0;
 
   void sine_float();
 };

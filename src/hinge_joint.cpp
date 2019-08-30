@@ -9,7 +9,7 @@ using namespace Ogre;
 
 namespace robosim {
 
-const Ogre::Real rotation = sqrtf(0.5);
+const Real rotation = sqrtf(0.5);
 
 Hinge_joint::Hinge_joint(std::shared_ptr<Creatable_node> parent,
                          std::shared_ptr<Creatable_node> child,

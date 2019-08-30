@@ -22,8 +22,8 @@ private:
   Ogre::Quaternion orientation_dest;
 
   bool in_rotation = false;
-  Ogre::Real rotation_progress = 0.0;
-  Ogre::Real rotation_factor = 0.01;
+  Real rotation_progress = 0.0;
+  Real rotation_factor = 0.01;
 };
 
 }

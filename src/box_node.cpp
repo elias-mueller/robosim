@@ -13,7 +13,7 @@ Box_node::Box_node(Ogre::SceneManager &scn_mgr)
   entity->setMaterialName("Examples/Rockwall");
   ogre_node->attachObject(entity);
   ogre_node->setPosition(0, 40, 0);
-  ogre_node->scale(Ogre::Vector3::UNIT_SCALE * 0.3);
+  ogre_node->scale(Vector3::UNIT_SCALE * 0.3);
 }
 
 }

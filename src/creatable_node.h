@@ -1,6 +1,8 @@
 #pragma once
 
+#include "types.h"
 #include <Ogre.h>
+
 namespace robosim {
 
 class Creatable_node
@@ -13,8 +15,8 @@ public:
   Creatable_node(Creatable_node &&) = delete;
   void operator=(Creatable_node &&) = delete;
 
-  virtual void translate(const Ogre::Vector3 &v);
-  virtual void scale(const Ogre::Vector3 &v);
+  virtual void translate(const Vector3 &v);
+  virtual void scale(const Vector3 &v);
 
   [[nodiscard]] virtual const Ogre::Quaternion &get_orientation() const;
   virtual void set_orientation(const Ogre::Quaternion &orientation);

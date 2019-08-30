@@ -5,7 +5,7 @@ using namespace Ogre;
 
 namespace robosim {
 
-Creatable_node::Creatable_node(SceneManager & scn_mgr)
+Creatable_node::Creatable_node(SceneManager &scn_mgr)
   : ogre_node{ scn_mgr.getRootSceneNode()->createChildSceneNode() }
 {}
 
@@ -16,13 +16,13 @@ Creatable_node::get_orientation() const
 }
 
 void
-Creatable_node::translate(const Ogre::Vector3 &v)
+Creatable_node::translate(const Vector3 &v)
 {
   ogre_node->translate(v);
 }
 
 void
-Creatable_node::scale(const Ogre::Vector3 &v)
+Creatable_node::scale(const Vector3 &v)
 {
   ogre_node->scale(v);
 }
