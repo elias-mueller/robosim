@@ -65,7 +65,7 @@ enable_sort = True
 
 # If true, the parsers may infer whether or not an argument list is sortable
 # (without annotation).
-autosort = False
+autosort = True
 
 # If a comment line starts with at least this many consecutive hash characters,
 # then don't lstrip() them off. This allows for lazy hash rulers where the first
