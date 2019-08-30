@@ -13,14 +13,16 @@ public:
   Creatable_node(Creatable_node &&) = delete;
   void operator=(Creatable_node &&) = delete;
 
-  virtual void translate(const Ogre::Vector3 &v) = 0;
-  virtual void scale(const Ogre::Vector3 &v) = 0;
+  virtual void translate(const Ogre::Vector3 &v);
+  virtual void scale(const Ogre::Vector3 &v);
 
-  [[nodiscard]] virtual const Ogre::Quaternion &get_orientation() const = 0;
-  virtual void set_orientation(const Ogre::Quaternion &orientation) = 0;
+  [[nodiscard]] virtual const Ogre::Quaternion &get_orientation() const;
+  virtual void set_orientation(const Ogre::Quaternion &orientation);
 
 protected:
-  Creatable_node() = default;
+  explicit Creatable_node(Ogre::SceneManager &);
+
+  Ogre::SceneNode *ogre_node;
 };
 
 }
