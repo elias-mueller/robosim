@@ -30,7 +30,8 @@ add_executable(app
                src/scene_builder.h
                src/sphere_node.cpp
                src/sphere_node.h
-               src/types.h)
+               src/types.h
+               src/utils.h)
 target_link_libraries(app OgreBites OgreRTShaderSystem)
 
 # Subdirectories
