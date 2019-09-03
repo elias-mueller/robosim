@@ -8,15 +8,13 @@ namespace robosim {
 class Hinge_joint : public Ogre::FrameListener
 {
 public:
-  Hinge_joint(std::shared_ptr<Creatable_node> parent,
-              std::shared_ptr<Creatable_node> child,
-              bool rotate);
+  Hinge_joint(Creatable_node &parent, Creatable_node &child, bool rotate);
 
   bool frameStarted(const Ogre::FrameEvent &evt) override;
 
 private:
-  std::shared_ptr<Creatable_node> parent;
-  std::shared_ptr<Creatable_node> child;
+  Creatable_node &parent;
+  Creatable_node &child;
 
   Ogre::Quaternion orientation_src;
   Ogre::Quaternion orientation_dest;

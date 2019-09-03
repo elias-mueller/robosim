@@ -95,13 +95,11 @@ create_entities()
 
   entity_factory.create(Entity_type::SPHERE);
 
-  std::shared_ptr<Creatable_node> box0 =
-    entity_factory.create(Entity_type::BOX);
-  std::shared_ptr<Creatable_node> box1 =
-    entity_factory.create(Entity_type::BOX);
+  Creatable_node &box0 = entity_factory.create(Entity_type::BOX);
+  Creatable_node &box1 = entity_factory.create(Entity_type::BOX);
 
-  box1->translate(Vector3{ 0, 50, 0 });
-  box1->scale(Vector3{ 2, 1, 1 });
+  box1.translate(Vector3{ 0, 50, 0 });
+  box1.scale(Vector3{ 2, 1, 1 });
 
   new Hinge_joint{ box0, box1, true };
 }

@@ -20,12 +20,12 @@ public:
   Entity_factory(Entity_factory &&) = delete;
   void operator=(Entity_factory &&) = delete;
 
-  std::shared_ptr<Creatable_node> create(Entity_type);
+  Creatable_node &create(Entity_type);
 
 private:
   Entity_factory() = default;
 
-  std::vector<std::shared_ptr<Creatable_node>> created_nodes;
+  std::vector<std::unique_ptr<Creatable_node>> created_nodes;
 };
 
 }

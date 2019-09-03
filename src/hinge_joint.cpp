@@ -11,11 +11,11 @@ namespace robosim {
 
 const Real rotation = sqrtf(0.5);
 
-Hinge_joint::Hinge_joint(std::shared_ptr<Creatable_node> parent,
-                         std::shared_ptr<Creatable_node> child,
+Hinge_joint::Hinge_joint(Creatable_node &parent,
+                         Creatable_node &child,
                          bool rotate)
-  : parent{ std::move(parent) }
-  , child{ std::move(child) }
+  : parent{ parent }
+  , child{ child }
   , orientation_src{ Quaternion{ 1, 0, 0, 1 } }
   , orientation_dest{ Quaternion{ -1, 0, 0, 1 } }
   , in_rotation{ rotate }
@@ -39,7 +39,7 @@ Hinge_joint::frameStarted(const Ogre::FrameEvent &evt)
     } else {
       Quaternion delta = Quaternion::Slerp(
         rotation_progress, orientation_src, orientation_dest, true);
-      child->set_orientation(delta);
+      child.set_orientation(delta);
     }
   }
   return FrameListener::frameStarted(evt);
