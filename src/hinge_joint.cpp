@@ -2,6 +2,7 @@
 
 #include "Ogre.h"
 #include "spdlog/spdlog.h"
+#include "utils.h"
 #include <iostream>
 #include <utility>
 
@@ -27,9 +28,9 @@ Hinge_joint::Hinge_joint(Creatable_node &parent,
 bool
 Hinge_joint::frameStarted(const Ogre::FrameEvent &evt)
 {
-  std::cout << orientation_src << std::endl;
-  std::cout << orientation_dest << std::endl;
-  std::cout << rotation_progress << std::endl;
+  utils::println(orientation_src);
+  utils::println(orientation_dest);
+  utils::println(rotation_progress);
   if (in_rotation) {
     rotation_progress += rotation_factor;
     if (rotation_progress > 1) {
